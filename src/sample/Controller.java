@@ -76,9 +76,9 @@ public class Controller {
     public void addNewTask() {
         taskList.add(new Task(newTask.getText(), dateTask.getValue().toString()));
         tasks.getItems().add(new Task(newTask.getText(), dateTask.getValue().toString()));
-        writeTaskListToFile();
         newTask.clear();
         dateTask.getEditor().clear();
+        radioButtonClicked();
     }
 
     public void saveTasks() {
