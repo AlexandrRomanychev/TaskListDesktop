@@ -6,6 +6,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Controller {
@@ -66,6 +67,7 @@ public class Controller {
     }
 
     public void initialize() {
+        dateTask.setValue(LocalDate.now());
         task.setCellValueFactory(new PropertyValueFactory<>("task"));
         data.setCellValueFactory(new PropertyValueFactory<>("date"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -78,6 +80,7 @@ public class Controller {
         tasks.getItems().add(new Task(newTask.getText(), dateTask.getValue().toString()));
         newTask.clear();
         dateTask.getEditor().clear();
+        dateTask.setValue(LocalDate.now());
         radioButtonClicked();
     }
 
@@ -85,7 +88,7 @@ public class Controller {
         writeTaskListToFile();
         if (ch1.isSelected())
             writeTaskListToTableWithoutClosed();
-        else writeTaskListToTable();
+        else radioButtonClicked();
     }
 
     public void radioButtonClicked() {
