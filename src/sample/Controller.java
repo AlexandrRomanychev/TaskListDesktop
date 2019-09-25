@@ -112,7 +112,8 @@ public class Controller {
         tasks.getItems().clear();
         for (Task task: taskList){
             if (!task.getStatus().getSelectionModel().getSelectedItem().equals("Удалить") &&
-                    !task.getStatus().getSelectionModel().getSelectedItem().equals("Закрыта"))
+                    !task.getStatus().getSelectionModel().getSelectedItem().equals("Закрыта") &&
+                    !task.getStatus().getSelectionModel().getSelectedItem().equals("Отложено"))
                 tasks.getItems().add(task);
         }
     }

@@ -23,7 +23,7 @@
         <RadioButton text="По убыванию даты" toggleGroup="$xxx" fx:id="f1" layoutX="10" layoutY="90" onMouseClicked="#radioButtonClicked"/>
         <RadioButton text="По возрастанию даты" toggleGroup="$xxx" fx:id="f2" layoutX="180" layoutY="90" onMouseClicked="#radioButtonClicked"/>
     </children>
-    <CheckBox text="Скрывать закрытые задачи" fx:id="ch1" layoutX="360" layoutY="90" onMouseClicked="#checkBoxClicked"/>
+    <CheckBox text="Скрывать закрытые и отложенные задачи" fx:id="ch1" layoutX="360" layoutY="90" onMouseClicked="#checkBoxClicked"/>
     <TableView fx:id="tasks" layoutX="10" layoutY="110" prefWidth="670" fixedCellSize="50">
         <columns>
             <TableColumn text="Задача" fx:id="task" prefWidth="350"/>
