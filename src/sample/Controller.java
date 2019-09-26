@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -86,9 +87,10 @@ public class Controller {
 
     public void saveTasks() {
         writeTaskListToFile();
+        radioButtonClicked();
         if (ch1.isSelected())
             writeTaskListToTableWithoutClosed();
-        else radioButtonClicked();
+        else writeTaskListToTable();
     }
 
     public void radioButtonClicked() {
