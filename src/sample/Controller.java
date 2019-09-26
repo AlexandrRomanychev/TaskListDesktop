@@ -41,9 +41,7 @@ public class Controller {
                 taskList.add(new Task(tasks[0], tasks[1], tasks[2]));
             }
             reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored){}
     }
 
     private void writeTaskListToTable() {
