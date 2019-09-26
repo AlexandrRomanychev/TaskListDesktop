@@ -9,22 +9,32 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+
 <Pane fx:controller="sample.Controller"
       xmlns:fx="http://javafx.com/fxml">
-    <Label text="Новая задача:" layoutX="10" layoutY="10"/>
-    <TextArea layoutX="10" layoutY="30" fx:id="newTask" maxHeight="55" maxWidth="250"/>
-    <DatePicker fx:id="dateTask" layoutX="270" layoutY="30" maxWidth="135"/>
-    <Button fx:id="add" layoutX="270" layoutY="60" text="Добавить задачу" onMouseClicked="#addNewTask"/>
-    <Button fx:id="save" layoutX="410" layoutY="60" text="Сохранить изменения" onMouseClicked="#saveTasks" />
+    <MenuBar>
+        <Menu text="Файл">
+            <MenuItem text="Редактировать статусы"/>
+            <MenuItem text="Редактировать метки"/>
+        </Menu>
+    </MenuBar>
+    <Label text="Новая задача:" layoutX="10" layoutY="40"/>
+    <TextArea layoutX="10" layoutY="60" fx:id="newTask" maxHeight="55" maxWidth="250"/>
+    <DatePicker fx:id="dateTask" layoutX="270" layoutY="60" maxWidth="135"/>
+    <Button fx:id="add" layoutX="270" layoutY="90" text="Добавить задачу" onMouseClicked="#addNewTask"/>
+    <Button fx:id="save" layoutX="410" layoutY="90" text="Сохранить изменения" onMouseClicked="#saveTasks" />
     <fx:define>
         <ToggleGroup fx:id="xxx" />
     </fx:define>
     <children>
-        <RadioButton text="По убыванию даты" toggleGroup="$xxx" fx:id="f1" layoutX="10" layoutY="90" onMouseClicked="#radioButtonClicked"/>
-        <RadioButton text="По возрастанию даты" toggleGroup="$xxx" fx:id="f2" layoutX="180" layoutY="90" onMouseClicked="#radioButtonClicked"/>
+        <RadioButton text="По убыванию даты" toggleGroup="$xxx" fx:id="f1" layoutX="10" layoutY="120" onMouseClicked="#radioButtonClicked"/>
+        <RadioButton text="По возрастанию даты" toggleGroup="$xxx" fx:id="f2" layoutX="180" layoutY="120" onMouseClicked="#radioButtonClicked"/>
     </children>
-    <CheckBox text="Скрывать закрытые и отложенные задачи" fx:id="ch1" layoutX="360" layoutY="90" onMouseClicked="#checkBoxClicked"/>
-    <TableView fx:id="tasks" layoutX="10" layoutY="110" prefWidth="670" fixedCellSize="50">
+    <CheckBox text="Скрывать закрытые и отложенные задачи" fx:id="ch1" layoutX="360" layoutY="120" onMouseClicked="#checkBoxClicked"/>
+    <TableView fx:id="tasks" layoutX="10" layoutY="140" prefWidth="670" fixedCellSize="50">
         <columns>
             <TableColumn text="Задача" fx:id="task" prefWidth="350"/>
             <TableColumn text="Дата" fx:id="data" prefWidth="150"/>
