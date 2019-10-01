@@ -5,15 +5,15 @@
 <Pane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="dialogs.EditStatus"
-            prefHeight="450.0" prefWidth="400.0">
+            prefHeight="250.0" prefWidth="400.0">
     <Label text="Название статуса" layoutX="10" layoutY="15"/>
     <TextField layoutX="140" layoutY="10" fx:id="newItem" maxHeight="10" maxWidth="150" />
-    <Button layoutX="300" layoutY="10" text="Добавить" onMouseClicked="#addNewItem" fx:id="add"/>
-    <TableView fx:id="statuses" layoutX="10" layoutY="40" prefWidth="200">
+    <Button layoutX="300" layoutY="10" text="Добавить" onMouseClicked="#addNewItem"/>
+    <TableView fx:id="statuses" layoutX="10" layoutY="40" prefWidth="200" maxHeight="200">
         <columns>
-            <TableColumn text="Название" fx:id="name" prefWidth="200"/>
+            <TableColumn text="Название" fx:id="name" prefWidth="190"/>
         </columns>
     </TableView>
-    <Button layoutY="40" layoutX="230" text="Удалить" onMouseClicked="#deleteItem" fx:id="del"/>
-    <Button layoutY="70" layoutX="230" text="Сохранить" onMouseClicked="#saveElements" fx:id="del"/>
+    <Button layoutY="40" layoutX="230" text="Удалить" onMouseClicked="#deleteItem"/>
+    <Button layoutY="70" layoutX="230" text="Сохранить" onMouseClicked="#saveElements"/>
 </Pane>

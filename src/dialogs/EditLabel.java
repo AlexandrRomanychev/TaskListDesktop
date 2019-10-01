@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import java.io.*;
 import java.util.*;
 
-public class EditStatus {
+public class EditLabel {
 
     @FXML
     private TextField newItem;
@@ -21,7 +21,7 @@ public class EditStatus {
         name.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
         try {
             status.clear();
-            BufferedReader reader = new BufferedReader(new FileReader("statuses.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("labels.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 status.add(line);
@@ -54,7 +54,7 @@ public class EditStatus {
 
     public void saveElements() {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("statuses.txt"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("labels.txt"));
             for (String task : status) {
                 bufferedWriter.write(task+"\n");
             }

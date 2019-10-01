@@ -18,7 +18,7 @@
     <MenuBar>
         <Menu text="Файл">
             <MenuItem text="Редактировать статусы" onAction="#editStatuses"/>
-            <MenuItem text="Редактировать метки"/>
+            <MenuItem text="Редактировать метки" onAction="#editLabels"/>
         </Menu>
     </MenuBar>
     <Label text="Новая задача:" layoutX="10" layoutY="40"/>

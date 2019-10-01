@@ -1,13 +1,12 @@
 package sample;
 
+import dialogs.EditLabel;
 import dialogs.EditStatus;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -130,6 +129,26 @@ public class Controller {
             Pane page = loader.load(EditStatus.class.getResource("editStatus.fxml"));
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Редастирование статусов");
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(Main.myPrimaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+            readTaskist();
+            radioButtonClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editLabels() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            Pane page = loader.load(EditLabel.class.getResource("editLabel.fxml"));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Редастирование меток");
+            dialogStage.setResizable(false);
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(Main.myPrimaryStage);
             Scene scene = new Scene(page);
