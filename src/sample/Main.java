@@ -8,8 +8,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Stage myPrimaryStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
+        myPrimaryStage=primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setResizable(false);
         primaryStage.setTitle("Список задач");

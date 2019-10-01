@@ -4,6 +4,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +16,25 @@ public class Task {
     private TextArea task = new TextArea();
     private ComboBox<String> status = new ComboBox<>();
     private DatePicker date = new DatePicker();
-    private List<String> statuses = new ArrayList<String>(Arrays.asList("Новая", "Выполняется", "Решена", "Закрыта", "Доработка", "Отложено", "Удалить"));
+    private List<String> statuses = new ArrayList<String>();
+
+    private void generateStatusList(){
+        try {
+            statuses.clear();
+            BufferedReader reader = new BufferedReader(new FileReader("statuses.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                statuses.add(line);
+            }
+            reader.close();
+        } catch (IOException ignored){}
+    }
 
     Task(String task, String date) {
         this.task.setMaxSize(350, 20);
         this.task.setText(task);
         this.date.setValue(LocalDate.parse(date));
+        generateStatusList();
         this.status.getItems().addAll(statuses);
         this.status.getSelectionModel().select(0);
     }
@@ -27,6 +43,7 @@ public class Task {
         this.task.setMaxSize(350, 20);
         this.task.setText(task);
         this.date.setValue(LocalDate.parse(date));
+        generateStatusList();
         this.status.getItems().addAll(statuses);
         this.status.getSelectionModel().select(status);
     }
