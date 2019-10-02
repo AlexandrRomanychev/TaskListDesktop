@@ -29,6 +29,8 @@ public class Controller {
     @FXML
     private TableColumn<Task, ComboBox<String>> status;
     @FXML
+    private TableColumn<Task, ComboBox<String>> label;
+    @FXML
     private RadioButton f1, f2;
     @FXML
     private CheckBox ch1;
@@ -43,7 +45,7 @@ public class Controller {
             String line;
             while ((line = reader.readLine()) != null) {
                 String [] tasks = line.split("_");
-                taskList.add(new Task(tasks[0], tasks[1], tasks[2]));
+                taskList.add(new Task(tasks));
             }
             reader.close();
         } catch (IOException ignored){}
@@ -75,6 +77,7 @@ public class Controller {
         task.setCellValueFactory(new PropertyValueFactory<>("task"));
         data.setCellValueFactory(new PropertyValueFactory<>("date"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        label.setCellValueFactory(new PropertyValueFactory<>("label"));
         readTaskist();
         writeTaskListToTable();
     }
@@ -122,6 +125,8 @@ public class Controller {
                 tasks.getItems().add(task);
         }
     }
+
+
 
     public void editStatuses() {
         try {

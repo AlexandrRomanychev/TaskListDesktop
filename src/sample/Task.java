@@ -15,8 +15,22 @@ import java.util.List;
 public class Task {
     private TextArea task = new TextArea();
     private ComboBox<String> status = new ComboBox<>();
+    private ComboBox<String> label = new ComboBox<>();
     private DatePicker date = new DatePicker();
     private List<String> statuses = new ArrayList<String>();
+    private List<String> labels = new ArrayList<String>();
+
+    private void generateLabelList(){
+        try {
+            labels.clear();
+            BufferedReader reader = new BufferedReader(new FileReader("labels.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                labels.add(line);
+            }
+            reader.close();
+        } catch (IOException ignored){}
+    }
 
     private void generateStatusList(){
         try {
@@ -30,22 +44,23 @@ public class Task {
         } catch (IOException ignored){}
     }
 
-    Task(String task, String date) {
-        this.task.setMaxSize(350, 20);
-        this.task.setText(task);
-        this.date.setValue(LocalDate.parse(date));
-        generateStatusList();
-        this.status.getItems().addAll(statuses);
-        this.status.getSelectionModel().select(0);
-    }
 
-    Task(String task, String date, String status) {
+    Task(String ... args){
         this.task.setMaxSize(350, 20);
-        this.task.setText(task);
-        this.date.setValue(LocalDate.parse(date));
+        this.task.setText(args[0]);
+        this.date.setValue(LocalDate.parse(args[1]));
         generateStatusList();
+        generateLabelList();
         this.status.getItems().addAll(statuses);
-        this.status.getSelectionModel().select(status);
+        this.label.getItems().addAll(labels);
+        this.status.getSelectionModel().select(0);
+        this.label.getSelectionModel().select(0);
+        if (args.length == 3){
+            this.status.getSelectionModel().select(args[2]);
+        }
+        if (args.length == 4){
+            this.label.getSelectionModel().select(args[3]);
+        }
     }
 
     public TextArea getTask() {
@@ -74,6 +89,15 @@ public class Task {
 
     @Override
     public String toString() {
-        return task.getText() + "_"+ date.getValue().toString() + "_" + status.getSelectionModel().getSelectedItem()+ "\n";
+        return task.getText() + "_"+ date.getValue().toString() + "_" + status.getSelectionModel().getSelectedItem()
+                +"_" + label.getSelectionModel().getSelectedItem()+  "\n";
+    }
+
+    public ComboBox<String> getLabel() {
+        return label;
+    }
+
+    public void setLabel(ComboBox<String> label) {
+        this.label = label;
     }
 }
