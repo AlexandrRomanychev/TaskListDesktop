@@ -59,6 +59,7 @@ public class Task {
             this.status.getSelectionModel().select(args[2]);
         }
         if (args.length == 4){
+            this.status.getSelectionModel().select(args[2]);
             this.label.getSelectionModel().select(args[3]);
         }
     }

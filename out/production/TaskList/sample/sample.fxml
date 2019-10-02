@@ -35,12 +35,12 @@
         <RadioButton text="По возрастанию даты" toggleGroup="$xxx" fx:id="f2" layoutX="180" layoutY="120" onMouseClicked="#radioButtonClicked"/>
     </children>
     <CheckBox text="Скрывать закрытые и отложенные задачи" fx:id="ch1" layoutX="360" layoutY="120" onMouseClicked="#checkBoxClicked"/>
-    <TableView fx:id="tasks" layoutX="10" layoutY="140" prefWidth="800" fixedCellSize="50">
+    <TableView fx:id="tasks" layoutX="10" layoutY="140" prefWidth="830" fixedCellSize="50">
         <columns>
             <TableColumn text="Задача" fx:id="task" prefWidth="350"/>
             <TableColumn text="Дата" fx:id="data" prefWidth="150"/>
             <TableColumn text="Статус" fx:id="status" prefWidth="150"/>
-            <TableColumn text="Метка" fx:id="label" prefWidth="150" />
+            <TableColumn text="Метка" fx:id="label" prefWidth="180" />
         </columns>
     </TableView>
 </Pane>
