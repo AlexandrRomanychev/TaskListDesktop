@@ -35,10 +35,12 @@ public class Controller {
     @FXML
     private RadioButton f1, f2;
     @FXML
-    private CheckBox ch1;
+    private Menu labelList, statusList;
     private List<Task> taskList = new ArrayList<>();
     private Comparator<Task> byDateDown= Comparator.comparing(obj -> obj.getDate().getValue().toString());
     private Comparator<Task> byDateUp = byDateDown.reversed();
+    private Set<String> labelFilter = new HashSet<>();
+    private Set<String> statusFilter = new HashSet<>();
 
     private void readTaskist() {
         try {
@@ -51,14 +53,6 @@ public class Controller {
             }
             reader.close();
         } catch (IOException ignored){}
-    }
-
-    private void writeTaskListToTable() {
-        tasks.getItems().clear();
-        for (Task task: taskList){
-            if (!task.getStatus().getSelectionModel().getSelectedItem().equals("Удалить"))
-                tasks.getItems().add(task);
-        }
     }
 
     private void writeTaskListToFile() {
@@ -82,7 +76,68 @@ public class Controller {
         label.setCellValueFactory(new PropertyValueFactory<>("label"));
         percent.setCellValueFactory(new PropertyValueFactory<>("percent"));
         readTaskist();
-        writeTaskListToTable();
+        generateCheckLabelMenu();
+        generateCheckStatusMenu();
+        filterByLabelsAndStatuses();
+    }
+
+    private void generateCheckStatusMenu() {
+        List<String> statuses = getListInformation("statuses.txt");
+        statusFilter.clear();
+        statusFilter.addAll(statuses);
+        statusList.getItems().clear();
+        for (String label: statuses){
+            CheckMenuItem item = new CheckMenuItem(label);
+            item.setSelected(true);
+            item.setOnAction(event -> {
+                if (!item.isSelected())
+                    statusFilter.remove(item.getText());
+                else statusFilter.add(item.getText());
+                radioButtonClicked();
+            });
+            statusList.getItems().add(item);
+        }
+    }
+
+    private List<String> getListInformation(String filename){
+        List<String> status = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                status.add(line);
+            }
+            reader.close();
+        } catch (IOException ignored){}
+        return status;
+    }
+
+    private void generateCheckLabelMenu() {
+        List<String> labels = getListInformation("labels.txt");
+        labelFilter.clear();
+        labelFilter.addAll(labels);
+        labelList.getItems().clear();
+        for (String label: labels){
+            CheckMenuItem item = new CheckMenuItem(label);
+            item.setSelected(true);
+            item.setOnAction(event -> {
+                if (!item.isSelected())
+                    labelFilter.remove(item.getText());
+                else labelFilter.add(item.getText());
+                radioButtonClicked();
+            });
+            labelList.getItems().add(item);
+        }
+    }
+
+    private void filterByLabelsAndStatuses(Boolean ... args){
+        tasks.getItems().clear();
+        for (Task task: taskList){
+            if (statusFilter.contains(task.getStatus().getSelectionModel().getSelectedItem()) &&
+                    labelFilter.contains(task.getLabel().getSelectionModel().getSelectedItem())) {
+                tasks.getItems().add(task);
+            }
+        }
     }
 
     public void addNewTask() {
@@ -96,10 +151,8 @@ public class Controller {
 
     public void saveTasks() {
         writeTaskListToFile();
+        readTaskist();
         radioButtonClicked();
-        if (ch1.isSelected())
-            writeTaskListToTableWithoutClosed();
-        else writeTaskListToTable();
     }
 
     public void radioButtonClicked() {
@@ -107,29 +160,8 @@ public class Controller {
             Collections.sort(taskList, byDateUp);
         if (f2.isSelected())
             Collections.sort(taskList, byDateDown);
-        if (ch1.isSelected())
-            writeTaskListToTableWithoutClosed();
-        else
-            writeTaskListToTable();
+        filterByLabelsAndStatuses();
     }
-
-    public void checkBoxClicked() {
-        if (ch1.isSelected())
-            writeTaskListToTableWithoutClosed();
-        else writeTaskListToTable();
-    }
-
-    private void writeTaskListToTableWithoutClosed() {
-        tasks.getItems().clear();
-        for (Task task: taskList){
-            if (!task.getStatus().getSelectionModel().getSelectedItem().equals("Удалить") &&
-                    !task.getStatus().getSelectionModel().getSelectedItem().equals("Закрыта") &&
-                    !task.getStatus().getSelectionModel().getSelectedItem().equals("Отложено"))
-                tasks.getItems().add(task);
-        }
-    }
-
-
 
     public void editStatuses() {
         try {
@@ -144,6 +176,7 @@ public class Controller {
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
             readTaskist();
+            generateCheckStatusMenu();
             radioButtonClicked();
         } catch (IOException e) {
             e.printStackTrace();
@@ -163,6 +196,7 @@ public class Controller {
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
             readTaskist();
+            generateCheckLabelMenu();
             radioButtonClicked();
         } catch (IOException e) {
             e.printStackTrace();
