@@ -16,4 +16,6 @@
     </TableView>
     <Button layoutY="40" layoutX="230" text="Удалить" onMouseClicked="#deleteItem"/>
     <Button layoutY="70" layoutX="230" text="Сохранить" onMouseClicked="#saveElements"/>
+    <Button layoutY="100" layoutX="230" text="Выше" onMouseClicked="#moveUp" />
+    <Button layoutY="130" layoutX="230" text="Ниже" onMouseClicked="#moveDown" />
 </Pane>
