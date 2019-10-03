@@ -65,7 +65,7 @@ public class EditLabel {
         }
     }
 
-    public void moveUp(MouseEvent mouseEvent) {
+    public void moveUp() {
         int index = statuses.getSelectionModel().getFocusedIndex();
         if ( index != 0){
             String elemUp = statuses.getItems().get(index);
@@ -76,7 +76,7 @@ public class EditLabel {
         }
     }
 
-    public void moveDown(MouseEvent mouseEvent) {
+    public void moveDown() {
         int index = statuses.getSelectionModel().getFocusedIndex();
         if ( index != statuses.getItems().size()){
             String elemDown = statuses.getItems().get(index);
