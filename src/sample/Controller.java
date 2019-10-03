@@ -31,6 +31,8 @@ public class Controller {
     @FXML
     private TableColumn<Task, ComboBox<String>> label;
     @FXML
+    private TableColumn<Task, ComboBox<String>> percent;
+    @FXML
     private RadioButton f1, f2;
     @FXML
     private CheckBox ch1;
@@ -78,6 +80,7 @@ public class Controller {
         data.setCellValueFactory(new PropertyValueFactory<>("date"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
         label.setCellValueFactory(new PropertyValueFactory<>("label"));
+        percent.setCellValueFactory(new PropertyValueFactory<>("percent"));
         readTaskist();
         writeTaskListToTable();
     }

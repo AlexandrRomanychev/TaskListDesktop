@@ -16,6 +16,7 @@ public class Task {
     private TextArea task = new TextArea();
     private ComboBox<String> status = new ComboBox<>();
     private ComboBox<String> label = new ComboBox<>();
+    private ComboBox<String> percent = new ComboBox<>();
     private DatePicker date = new DatePicker();
     private List<String> statuses = new ArrayList<String>();
     private List<String> labels = new ArrayList<String>();
@@ -55,12 +56,13 @@ public class Task {
         this.label.getItems().addAll(labels);
         this.status.getSelectionModel().select(0);
         this.label.getSelectionModel().select(0);
-        if (args.length == 3){
-            this.status.getSelectionModel().select(args[2]);
-        }
-        if (args.length == 4){
-            this.status.getSelectionModel().select(args[2]);
-            this.label.getSelectionModel().select(args[3]);
+        for (int i=0;i<=100;i+=10)
+            this.percent.getItems().addAll(i+"%");
+        this.percent.getSelectionModel().select(0);
+        switch(args.length){
+            case 5: this.percent.getSelectionModel().select(args[4]);
+            case 4: this.label.getSelectionModel().select(args[3]);
+            case 3: this.status.getSelectionModel().select(args[2]); break;
         }
     }
 
@@ -91,7 +93,7 @@ public class Task {
     @Override
     public String toString() {
         return task.getText() + "_"+ date.getValue().toString() + "_" + status.getSelectionModel().getSelectedItem()
-                +"_" + label.getSelectionModel().getSelectedItem()+  "\n";
+                +"_" + label.getSelectionModel().getSelectedItem()+"_"+percent.getSelectionModel().getSelectedItem()+"\n";
     }
 
     public ComboBox<String> getLabel() {
@@ -100,5 +102,13 @@ public class Task {
 
     public void setLabel(ComboBox<String> label) {
         this.label = label;
+    }
+
+    public ComboBox<String> getPercent() {
+        return percent;
+    }
+
+    public void setPercent(ComboBox<String> percent) {
+        this.percent = percent;
     }
 }
