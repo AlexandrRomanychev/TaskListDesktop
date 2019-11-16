@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -14,9 +15,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         myPrimaryStage=primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Image icon = new Image(getClass().getResourceAsStream("/resources/icon.png"));
+        primaryStage.getIcons().add(icon);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Список задач");
         primaryStage.setScene(new Scene(root, 1120, 550));
+
         primaryStage.show();
     }
 
