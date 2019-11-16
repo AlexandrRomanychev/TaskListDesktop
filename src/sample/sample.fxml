@@ -13,6 +13,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
 
+<?import javafx.scene.control.ComboBox?>
 <Pane fx:controller="sample.Controller"
       xmlns:fx="http://javafx.com/fxml">
     <MenuBar>
@@ -29,6 +30,7 @@
     <DatePicker fx:id="dateTask" layoutX="270" layoutY="60" maxWidth="135"/>
     <Button fx:id="add" layoutX="270" layoutY="90" text="Добавить задачу" onMouseClicked="#addNewTask"/>
     <Button fx:id="save" layoutX="410" layoutY="90" text="Сохранить изменения" onMouseClicked="#saveTasks" />
+    <ComboBox fx:id="curStatus" layoutX="410" layoutY="60" prefWidth="170"/>
     <fx:define>
         <ToggleGroup fx:id="xxx" />
     </fx:define>
@@ -36,13 +38,14 @@
         <RadioButton text="По убыванию даты" toggleGroup="$xxx" fx:id="f1" layoutX="10" layoutY="120" onMouseClicked="#radioButtonClicked"/>
         <RadioButton text="По возрастанию даты" toggleGroup="$xxx" fx:id="f2" layoutX="180" layoutY="120" onMouseClicked="#radioButtonClicked"/>
     </children>
-    <TableView fx:id="tasks" layoutX="10" layoutY="140" prefWidth="950" fixedCellSize="50">
+    <TableView fx:id="tasks" layoutX="10" layoutY="140" prefWidth="1100" fixedCellSize="50">
         <columns>
             <TableColumn text="Задача" fx:id="task" prefWidth="350"/>
             <TableColumn text="Дата" fx:id="data" prefWidth="150"/>
             <TableColumn text="Процент" fx:id="percent" prefWidth="80"/>
             <TableColumn text="Статус" fx:id="status" prefWidth="150"/>
             <TableColumn text="Метка" fx:id="label" prefWidth="180" />
+            <TableColumn text="Приоритет" fx:id="priority" prefWidth="158"/>
         </columns>
     </TableView>
 </Pane>

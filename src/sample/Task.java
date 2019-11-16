@@ -19,32 +19,21 @@ public class Task {
     private ComboBox<String> status = new ComboBox<>();
     private ComboBox<String> label = new ComboBox<>();
     private ComboBox<String> percent = new ComboBox<>();
+    private ComboBox<String> priority = new ComboBox<>();
     private DatePicker date = new DatePicker();
-    private List<String> statuses = new ArrayList<String>();
-    private List<String> labels = new ArrayList<String>();
 
-    private void generateLabelList(){
+    private List<String> generateItems(String filename){
+        List<String> items = new ArrayList<>();
         try {
-            labels.clear();
-            BufferedReader reader = new BufferedReader(new FileReader("labels.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = reader.readLine()) != null) {
-                labels.add(line);
+                items.add(line);
             }
             reader.close();
-        } catch (IOException ignored){}
-    }
 
-    private void generateStatusList(){
-        try {
-            statuses.clear();
-            BufferedReader reader = new BufferedReader(new FileReader("statuses.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                statuses.add(line);
-            }
-            reader.close();
         } catch (IOException ignored){}
+        return items;
     }
 
 
@@ -52,12 +41,15 @@ public class Task {
         this.task.setMaxSize(350, 20);
         this.task.setText(args[0]);
         this.date.setValue(LocalDate.parse(args[1]));
-        generateStatusList();
-        generateLabelList();
+        List<String> statuses = generateItems("statuses.txt");
+        List<String> labels = generateItems("labels.txt");
+        List<String> prioryties = generateItems("prioryties.txt");
         this.status.getItems().addAll(statuses);
         this.label.getItems().addAll(labels);
+        this.priority.getItems().addAll(prioryties);
         this.status.getSelectionModel().select(0);
         this.label.getSelectionModel().select(0);
+        this.priority.getSelectionModel().select(0);
         for (int i=0;i<=100;i+=10)
             this.percent.getItems().addAll(i+"%");
         this.percent.getSelectionModel().select(0);
@@ -112,5 +104,13 @@ public class Task {
 
     public void setPercent(ComboBox<String> percent) {
         this.percent = percent;
+    }
+
+    public ComboBox<String> getPriority() {
+        return priority;
+    }
+
+    public void setPriority(ComboBox<String> priority) {
+        this.priority = priority;
     }
 }
