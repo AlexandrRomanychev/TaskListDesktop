@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     private ComboBox<String> curLabel;
     @FXML
+    private ComboBox<String> curPriority;
+    @FXML
     private TableColumn<Task, TextArea> task;
     @FXML
     private TableColumn<Task, DatePicker> data;
@@ -86,6 +88,7 @@ public class Controller {
         priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         curStatus.getItems().addAll(getListInformation("statuses.txt"));
         curLabel.getItems().addAll(getListInformation("labels.txt"));
+        curPriority.getItems().addAll(getListInformation("priorities.txt"));
         readTaskList();
         generateCheckLabelMenu();
         generateCheckStatusMenu();
@@ -175,12 +178,17 @@ public class Controller {
 
     public void addNewTask() {
         taskList.add(new Task(newTask.getText(), dateTask.getValue().toString(),
-                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem()));
+                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem(), "0%",
+                curPriority.getSelectionModel().getSelectedItem()));
         tasks.getItems().add(new Task(newTask.getText(), dateTask.getValue().toString(),
-                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem()));
+                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem(), "0%",
+                curPriority.getSelectionModel().getSelectedItem()));
         newTask.clear();
         dateTask.getEditor().clear();
         dateTask.setValue(LocalDate.now());
+        curStatus.getSelectionModel().select(-1);
+        curLabel.getSelectionModel().select(-1);
+        curPriority.getSelectionModel().select(-1);
         radioButtonClicked();
     }
 

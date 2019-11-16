@@ -35,6 +35,8 @@
     <ComboBox fx:id="curStatus" layoutX="410" layoutY="60" prefWidth="170"/>
     <Label text="Метка: " layoutX="590" layoutY="40" />
     <ComboBox fx:id="curLabel" layoutX="590" layoutY="60" prefWidth="170"/>
+    <Label text="Приоритет: " layoutX="770" layoutY="40"/>
+    <ComboBox fx:id="curPriority" layoutX="770" layoutY="60" prefWidth="170" />
     <fx:define>
         <ToggleGroup fx:id="xxx" />
     </fx:define>
