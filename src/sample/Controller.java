@@ -165,6 +165,8 @@ public class Controller {
                     priorityFilter.contains(task.getPriority().getSelectionModel().getSelectedItem())) {
                 tasks.getItems().add(task);
             }
+            if (statusFilter.isEmpty() || labelFilter.isEmpty() || priorityFilter.isEmpty())
+                tasks.getItems().add(task);
         }
     }
 
