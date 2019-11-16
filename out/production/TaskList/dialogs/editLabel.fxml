@@ -3,9 +3,9 @@
 <?import javafx.scene.layout.*?>
 
 <Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="dialogs.EditLabel"
-      prefHeight="250.0" prefWidth="400.0">
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dialogs.EditLabel"
+            prefHeight="250.0" prefWidth="400.0">
     <Label text="Название метки" layoutX="10" layoutY="15"/>
     <TextField layoutX="140" layoutY="10" fx:id="newItem" maxHeight="10" maxWidth="150" />
     <Button layoutX="300" layoutY="10" text="Добавить" onMouseClicked="#addNewItem"/>

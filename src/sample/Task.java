@@ -1,17 +1,14 @@
 package sample;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Task {
@@ -43,7 +40,7 @@ public class Task {
         this.date.setValue(LocalDate.parse(args[1]));
         List<String> statuses = generateItems("statuses.txt");
         List<String> labels = generateItems("labels.txt");
-        List<String> prioryties = generateItems("prioryties.txt");
+        List<String> prioryties = generateItems("priorities.txt");
         this.status.getItems().addAll(statuses);
         this.label.getItems().addAll(labels);
         this.priority.getItems().addAll(prioryties);
@@ -54,6 +51,7 @@ public class Task {
             this.percent.getItems().addAll(i+"%");
         this.percent.getSelectionModel().select(0);
         switch(args.length){
+            case 6: this.priority.getSelectionModel().select(args[5]);
             case 5: this.percent.getSelectionModel().select(args[4]);
             case 4: this.label.getSelectionModel().select(args[3]);
             case 3: this.status.getSelectionModel().select(args[2]); break;
@@ -87,7 +85,8 @@ public class Task {
     @Override
     public String toString() {
         return task.getText() + "_"+ date.getValue().toString() + "_" + status.getSelectionModel().getSelectedItem()
-                +"_" + label.getSelectionModel().getSelectedItem()+"_"+percent.getSelectionModel().getSelectedItem()+"\n";
+                +"_" + label.getSelectionModel().getSelectedItem()+"_"+percent.getSelectionModel().getSelectedItem()
+                +"_" + priority.getSelectionModel().getSelectedItem()+ "\n";
     }
 
     public ComboBox<String> getLabel() {

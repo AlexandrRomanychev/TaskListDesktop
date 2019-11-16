@@ -20,16 +20,18 @@
         <Menu text="Файл">
             <MenuItem text="Редактировать статусы" onAction="#editStatuses"/>
             <MenuItem text="Редактировать метки" onAction="#editLabels"/>
-
+            <MenuItem text="Редактировать приоритет" onAction="#editPriority"/>
         </Menu>
         <Menu text="Фильтр по меткам" fx:id="labelList"></Menu>
         <Menu text="Фильтр по статусам" fx:id="statusList"></Menu>
+        <Menu text="Фильтр по приоритету" fx:id="priorityList"></Menu>
     </MenuBar>
     <Label text="Новая задача:" layoutX="10" layoutY="40"/>
     <TextArea layoutX="10" layoutY="60" fx:id="newTask" maxHeight="55" maxWidth="250"/>
     <DatePicker fx:id="dateTask" layoutX="270" layoutY="60" maxWidth="135"/>
     <Button fx:id="add" layoutX="270" layoutY="90" text="Добавить задачу" onMouseClicked="#addNewTask"/>
     <Button fx:id="save" layoutX="410" layoutY="90" text="Сохранить изменения" onMouseClicked="#saveTasks" />
+    <Label text="Статус:" layoutX="410" layoutY="40"/>
     <ComboBox fx:id="curStatus" layoutX="410" layoutY="60" prefWidth="170"/>
     <fx:define>
         <ToggleGroup fx:id="xxx" />

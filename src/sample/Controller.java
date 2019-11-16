@@ -2,6 +2,7 @@ package sample;
 
 import dialogs.EditLabel;
 import dialogs.EditStatus;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,14 +40,15 @@ public class Controller {
     @FXML
     private RadioButton f1, f2;
     @FXML
-    private Menu labelList, statusList;
+    private Menu labelList, statusList, priorityList;
     private List<Task> taskList = new ArrayList<>();
     private Comparator<Task> byDateDown= Comparator.comparing(obj -> obj.getDate().getValue().toString());
     private Comparator<Task> byDateUp = byDateDown.reversed();
     private Set<String> labelFilter = new HashSet<>();
     private Set<String> statusFilter = new HashSet<>();
+    private Set<String> priorityFilter = new HashSet<>();
 
-    private void readTaskist() {
+    private void readTaskList() {
         try {
             taskList.clear();
             BufferedReader reader = new BufferedReader(new FileReader("tasks.txt"));
@@ -81,10 +83,11 @@ public class Controller {
         percent.setCellValueFactory(new PropertyValueFactory<>("percent"));
         priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         curStatus.getItems().addAll(getListInformation("statuses.txt"));
-        readTaskist();
+        readTaskList();
         generateCheckLabelMenu();
         generateCheckStatusMenu();
-        filterByLabelsAndStatuses();
+        generateCheckPriorityMenu();
+        filter();
     }
 
     private void generateCheckStatusMenu() {
@@ -102,6 +105,24 @@ public class Controller {
                 radioButtonClicked();
             });
             statusList.getItems().add(item);
+        }
+    }
+
+    private void generateCheckPriorityMenu() {
+        List<String> priorities = getListInformation("priorities.txt");
+        priorityFilter.clear();
+        priorityFilter.addAll(priorities);
+        priorityList.getItems().clear();
+        for (String label: priorities){
+            CheckMenuItem item = new CheckMenuItem(label);
+            item.setSelected(true);
+            item.setOnAction(event -> {
+                if (!item.isSelected())
+                    priorityFilter.remove(item.getText());
+                else priorityFilter.add(item.getText());
+                radioButtonClicked();
+            });
+            priorityList.getItems().add(item);
         }
     }
 
@@ -136,11 +157,12 @@ public class Controller {
         }
     }
 
-    private void filterByLabelsAndStatuses(Boolean ... args){
+    private void filter(Boolean ... args){
         tasks.getItems().clear();
         for (Task task: taskList){
             if (statusFilter.contains(task.getStatus().getSelectionModel().getSelectedItem()) &&
-                    labelFilter.contains(task.getLabel().getSelectionModel().getSelectedItem())) {
+                    labelFilter.contains(task.getLabel().getSelectionModel().getSelectedItem()) &&
+                    priorityFilter.contains(task.getPriority().getSelectionModel().getSelectedItem())) {
                 tasks.getItems().add(task);
             }
         }
@@ -159,7 +181,7 @@ public class Controller {
 
     public void saveTasks() {
         writeTaskListToFile();
-        readTaskist();
+        readTaskList();
         radioButtonClicked();
     }
 
@@ -168,46 +190,40 @@ public class Controller {
             Collections.sort(taskList, byDateUp);
         if (f2.isSelected())
             Collections.sort(taskList, byDateDown);
-        filterByLabelsAndStatuses();
+        filter();
+    }
+
+    public void showModalWindow(String resource, String title){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            Pane page = loader.load(EditStatus.class.getResource(resource));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(Main.myPrimaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+            readTaskList();
+            generateCheckStatusMenu();
+            generateCheckLabelMenu();
+            generateCheckPriorityMenu();
+            radioButtonClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void editStatuses() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            Pane page = loader.load(EditStatus.class.getResource("editStatus.fxml"));
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Редастирование статусов");
-            dialogStage.setResizable(false);
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(Main.myPrimaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
-            readTaskist();
-            generateCheckStatusMenu();
-            radioButtonClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showModalWindow("editStatus.fxml", "Редактирование статусов");
     }
 
     public void editLabels() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            Pane page = loader.load(EditLabel.class.getResource("editLabel.fxml"));
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Редастирование меток");
-            dialogStage.setResizable(false);
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(Main.myPrimaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
-            readTaskist();
-            generateCheckLabelMenu();
-            radioButtonClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showModalWindow("editLabel.fxml", "Редактирование меток");
+    }
+
+    public void editPriority() {
+        showModalWindow("editPriority.fxml", "Редактирование приоритета");
     }
 }
