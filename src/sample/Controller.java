@@ -26,6 +26,8 @@ public class Controller {
     @FXML
     private ComboBox<String> curStatus;
     @FXML
+    private ComboBox<String> curLabel;
+    @FXML
     private TableColumn<Task, TextArea> task;
     @FXML
     private TableColumn<Task, DatePicker> data;
@@ -83,6 +85,7 @@ public class Controller {
         percent.setCellValueFactory(new PropertyValueFactory<>("percent"));
         priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         curStatus.getItems().addAll(getListInformation("statuses.txt"));
+        curLabel.getItems().addAll(getListInformation("labels.txt"));
         readTaskList();
         generateCheckLabelMenu();
         generateCheckStatusMenu();
@@ -172,9 +175,9 @@ public class Controller {
 
     public void addNewTask() {
         taskList.add(new Task(newTask.getText(), dateTask.getValue().toString(),
-                curStatus.getSelectionModel().getSelectedItem()));
+                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem()));
         tasks.getItems().add(new Task(newTask.getText(), dateTask.getValue().toString(),
-                curStatus.getSelectionModel().getSelectedItem()));
+                curStatus.getSelectionModel().getSelectedItem(), curLabel.getSelectionModel().getSelectedItem()));
         newTask.clear();
         dateTask.getEditor().clear();
         dateTask.setValue(LocalDate.now());

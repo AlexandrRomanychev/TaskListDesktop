@@ -33,6 +33,8 @@
     <Button fx:id="save" layoutX="410" layoutY="90" text="Сохранить изменения" onMouseClicked="#saveTasks" />
     <Label text="Статус:" layoutX="410" layoutY="40"/>
     <ComboBox fx:id="curStatus" layoutX="410" layoutY="60" prefWidth="170"/>
+    <Label text="Метка: " layoutX="590" layoutY="40" />
+    <ComboBox fx:id="curLabel" layoutX="590" layoutY="60" prefWidth="170"/>
     <fx:define>
         <ToggleGroup fx:id="xxx" />
     </fx:define>
